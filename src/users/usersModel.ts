@@ -1,24 +1,24 @@
-import mongoose from 'mongoose';
-import bcrypt from  'bcrypt';
+import mongoose from "mongoose";
+import bcrypt from "bcrypt";
 
 export interface I_UserDocument extends mongoose.Document {
- name: string;
- password: string;
+  name: string;
+  password: string;
 }
 
 const UserSchema: mongoose.Schema<I_UserDocument> = new mongoose.Schema({
- name: { type: String, unique: true },
- password: { type: String },
+  name: { type: String, unique: true },
+  password: { type: String },
 });
 
+UserSchema.pre("save", async function (next) {
+  const user = this;
 
-UserSchema.pre('save', async function(next) {
-    const user = this;
+  if (user.isModified("password")) {
+    user.password = await bcrypt.hash(user.password, 8);
+  }
 
-    if(user.isModified('password')){
-        user.password = await bcrypt.hash(user.password, 8 )
-    }
-    next()
-})
+  next();
+});
 
-export const UserModel = mongoose.model<I_UserDocument>('User', UserSchema);
+export const UserModel = mongoose.model<I_UserDocument>("User", UserSchema);
