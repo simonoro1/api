@@ -4,29 +4,32 @@ const router = Router();
 
 
 //Post Method
-router.post('/post', (req, res) => {
-    res.send('Post API')
+router.post('/login', (req, res) => {
+    res.send('login')
 })
 
+router.post('/register', (req, res) => {
+    res.send('register')
+})
 //Get all Method
-router.get('/getAll', (req, res) => {
-    res.send('Get All API')
-})
+// router.get('/getAll', (req, res) => {
+//     res.send('Get All API')
+// })
 
-//Get by ID Method
-router.get('/getOne/:id', (req, res) => {
-    res.send('Get by ID API')
-})
+// //Get by ID Method
+// router.get('/getOne/:id', (req, res) => {
+//     res.send('Get by ID API')
+// })
 
-//Update by ID Method
-router.patch('/update/:id', (req, res) => {
-    res.send('Update by ID API')
-})
+// //Update by ID Method
+// router.patch('/update/:id', (req, res) => {
+//     res.send('Update by ID API')
+// })
 
-//Delete by ID Method
-router.delete('/delete/:id', (req, res) => {
-    res.send('Delete by ID API')
-})
+// //Delete by ID Method
+// router.delete('/delete/:id', (req, res) => {
+//     res.send('Delete by ID API')
+// })
 
 
 
