@@ -1,16 +1,14 @@
 import { Router, Request, Response } from 'express';
+import { login, register } from '../controller/userController';
 
 const router = Router();
 
 
 //Post Method
-router.post('/login', (req, res) => {
-    res.send('login')
-})
+router.post('/login', login)
 
-router.post('/register', (req, res) => {
-    res.send('register')
-})
+router.post('/register', register)
+
 //Get all Method
 // router.get('/getAll', (req, res) => {
 //     res.send('Get All API')
