@@ -1,13 +1,14 @@
 import { Request, Response } from "express";
-import * as userService from './userService'
-
+import * as userService from './userService';
+import jwt from 'jsonwebtoken';
 
 
 export const Userlogin = async (req: Request, res: Response)  => {
     try {
         const foundUser = await userService.login(req.body); // userService function
-        console.log(foundUser)
-        res.status(200).send(foundUser)
+        const token = jwt.sign({_id: foundUser._id?.toString(), name: foundUser.name}, 'secret',{expiresIn: '2days'})
+        console.log(foundUser, token)
+        res.status(200).send({foundUser, token})
     } catch (error) {
         res.status(500).send(error) //Error Managment
     }
