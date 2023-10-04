@@ -6,8 +6,10 @@ import * as userService from './userService'
 export const Userlogin = async (req: Request, res: Response)  => {
     try {
         const foundUser = await userService.login(req.body); // userService function
-        console.log('login')
+        console.log(foundUser)
+        res.status(200).send(foundUser)
     } catch (error) {
+        res.status(500).send(error) //Error Managment
     }
 }
 

@@ -23,6 +23,8 @@ export async function login(user: HydratedDocument<I_UserDocument>) {
     if(!bcrypt.compareSync(user.password, foundUser.password)) {
       throw error
     }
+
+    return foundUser
   } catch (error) {
     throw error;  
   }

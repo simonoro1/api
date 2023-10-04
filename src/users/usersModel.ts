@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import bcrypt from "bcrypt";
+const bcrypt = require('bcrypt');
 
 export interface I_UserDocument extends mongoose.Document {
   name: string;
