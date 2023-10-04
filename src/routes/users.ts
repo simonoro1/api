@@ -1,5 +1,6 @@
 import { Router, Request, Response } from 'express';
 import { Userlogin, Usersignup } from '../users/userController';
+import { auth } from '../middleware/auth';
 
 const router = Router();
 
@@ -9,10 +10,9 @@ router.post('/login', Userlogin)
 
 router.post('/register', Usersignup)
 
-//Get all Method
-// router.get('/getAll', (req, res) => {
-//     res.send('Get All API')
-// })
+router.get('/getAll', auth, (req, res) => {
+    res.send('Get All API')
+})
 
 // //Get by ID Method
 // router.get('/getOne/:id', (req, res) => {
