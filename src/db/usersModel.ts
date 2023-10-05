@@ -5,15 +5,17 @@ export interface I_UserDocument extends mongoose.Document {
   // email: string;
   name: string;
   password: string;
-  status: boolean;
   membership: string;
+  club: Schema.Types.ObjectId;
+  status: string;
+  endDate: Date;
+  //created: dateTime
   // name: string;
   // lastName: string;
   // dni: number;
   // phone: number;
   // address: object;
   // activities: Array<[ObjectId]>;
-  club: Schema.Types.ObjectId;
   // billing: Array<[ObjectId]>;
 }
 
@@ -21,11 +23,12 @@ const UserSchema: mongoose.Schema<I_UserDocument> = new mongoose.Schema({
   name: { type: String, unique: true, },
   password: { type: String , required: true},
   membership: {type: String, enum: ['None', 'Basic', 'Pro'], default: 'None'},
-  club: {type: Schema.Types.ObjectId, ref: 'Club'}
-  // address: {street: String, number: Number, hood: String },
-  // membership: [{name: String, price: Number}],
-  // status: {type: Boolean, default: false},s
-
+  status: {type: String, enum: ['Active', 'Paused', 'Canceled'], default: 'Active'},
+  endDate: {
+    type: Date,
+    default: null,
+  },
+  club: {type: Schema.Types.ObjectId, ref: 'Club'},
 });
 
 UserSchema.pre("save", async function (next) {
