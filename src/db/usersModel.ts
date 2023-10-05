@@ -6,12 +6,12 @@ export interface I_UserDocument extends mongoose.Document {
   name: string;
   password: string;
   status: boolean;
+  membership: string;
   // name: string;
   // lastName: string;
   // dni: number;
   // phone: number;
   // address: object;
-  // membership: Array<[Object]>;
   // activities: Array<[ObjectId]>;
   // club: Array<[ObjectId]>;
   // billing: Array<[ObjectId]>;
@@ -20,6 +20,7 @@ export interface I_UserDocument extends mongoose.Document {
 const UserSchema: mongoose.Schema<I_UserDocument> = new mongoose.Schema({
   name: { type: String, unique: true, },
   password: { type: String , required: true},
+  membership: {type: String, enum: ['None', 'Basic', 'Pro'], default: 'None'}
   // address: {street: String, number: Number, hood: String },
   // membership: [{name: String, price: Number}],
   // status: {type: Boolean, default: false},
