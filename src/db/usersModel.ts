@@ -1,4 +1,4 @@
-import mongoose, { ObjectId } from "mongoose";
+import mongoose, { ObjectId, Schema } from "mongoose";
 const bcrypt = require('bcrypt');
 
 export interface I_UserDocument extends mongoose.Document {
@@ -13,18 +13,18 @@ export interface I_UserDocument extends mongoose.Document {
   // phone: number;
   // address: object;
   // activities: Array<[ObjectId]>;
-  // club: Array<[ObjectId]>;
+  club: Schema.Types.ObjectId;
   // billing: Array<[ObjectId]>;
 }
 
 const UserSchema: mongoose.Schema<I_UserDocument> = new mongoose.Schema({
   name: { type: String, unique: true, },
   password: { type: String , required: true},
-  membership: {type: String, enum: ['None', 'Basic', 'Pro'], default: 'None'}
+  membership: {type: String, enum: ['None', 'Basic', 'Pro'], default: 'None'},
+  club: {type: Schema.Types.ObjectId, ref: 'Club'}
   // address: {street: String, number: Number, hood: String },
   // membership: [{name: String, price: Number}],
-  // status: {type: Boolean, default: false},
-  // club: []
+  // status: {type: Boolean, default: false},s
 
 });
 
