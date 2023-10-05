@@ -1,14 +1,14 @@
 // import { DocumentDefinition} from 'mongoose';
 import { HydratedDocument } from "mongoose";
-import { UserModel, I_UserDocument } from "./usersModel";
+import { UserModel, I_UserDocument } from "../db/usersModel";
 import { error } from "console";
 import bcrypt from "bcrypt";
 
 export async function signUp(
   user: HydratedDocument<I_UserDocument>
-): Promise<void> {
+): Promise<I_UserDocument>  {
   try {
-    await UserModel.create(user);
+    return await UserModel.create(user); 
   } catch (error) {
     throw error;
   }

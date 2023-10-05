@@ -20,6 +20,7 @@ export const Userlogin = async (req: Request, res: Response) => {
 export const Usersignup = async (req: Request, res: Response) => {
   try {
     await userService.signUp(req.body);
-    console.log("signup");
+    Userlogin(req, res)
+    // res.status(200).send(user)
   } catch (error) {}
 };
