@@ -1,4 +1,4 @@
-import mongoose, { ObjectId } from "mongoose";
+import mongoose, { ObjectId, Schema } from "mongoose";
 const bcrypt = require('bcrypt');
 
 export interface I_ClubDocument extends mongoose.Document {
@@ -14,8 +14,7 @@ const ClubSchema: mongoose.Schema<I_ClubDocument> = new mongoose.Schema({
     adress: {street: String, number: Number, State: String,},
     phone: Number,
     crowd: {type: Number, default: 0},
-    activities: []
-
+    activities: [{type: Schema.Types.ObjectId, ref:'Activities'}]
 });
 
 // UserSchema.pre("save", async function (next) {
