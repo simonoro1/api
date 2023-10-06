@@ -6,7 +6,7 @@ export interface I_UserDocument extends mongoose.Document {
   name: string;
   password: string;
   membership: string;
-  club: Schema.Types.ObjectId;
+  myClub: Schema.Types.ObjectId;
   status: string;
   endDate: Date;
   //created: dateTime
@@ -28,7 +28,7 @@ const UserSchema: mongoose.Schema<I_UserDocument> = new mongoose.Schema({
     type: Date,
     default: null,
   },
-  club: {type: Schema.Types.ObjectId, ref: 'Club'},
+  myClub: {type: Schema.Types.ObjectId, ref: 'Club'},
 });
 
 UserSchema.pre("save", async function (next) {

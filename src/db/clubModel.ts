@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 
 export interface I_ClubDocument extends mongoose.Document {
     name: string,
-    adress: object,
+    address: object,
     phone: number,
     crowd: number,
     activities: Array<[ObjectId]>
@@ -11,7 +11,7 @@ export interface I_ClubDocument extends mongoose.Document {
 
 const ClubSchema: mongoose.Schema<I_ClubDocument> = new mongoose.Schema({
     name: String,
-    adress: {street: String, number: Number, State: String,},
+    address: {street: String, number: Number, city: String,},
     phone: Number,
     crowd: {type: Number, default: 0},
     activities: [{type: Schema.Types.ObjectId, ref:'Activities'}]
