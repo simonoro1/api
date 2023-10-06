@@ -1,5 +1,5 @@
 import { Router, Request, Response } from 'express';
-import { Userlogin, Usersignup } from '../users/userController';
+import { Userlogin, Usersignup, myClub } from '../users/userController';
 import { auth } from '../middleware/auth';
 
 const router = Router();
@@ -11,9 +11,10 @@ router.post('/login', Userlogin)
 router.post('/register', Usersignup)
 
 router.get('/getAll', auth, (req, res) => {
-    res.send('Get All API')
+    res.send('get all authorized')
 })
 
+router.post('/myClub', auth, myClub)
 // //Get by ID Method
 // router.get('/getOne/:id', (req, res) => {
 //     res.send('Get by ID API')

@@ -24,3 +24,13 @@ export const Usersignup = async (req: Request, res: Response) => {
     // res.status(200).send(user)
   } catch (error) {}
 };
+
+export const myClub = async (req: Request, res: Response) => {
+  try {
+    console.log('autorizado')
+    // const user = await userService.myClub(req.body, req.headers);
+    res.status(200).send("hola")
+  } catch (error) {
+    res.status(500).send(error)
+  }
+};

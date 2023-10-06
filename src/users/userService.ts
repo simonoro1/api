@@ -3,6 +3,7 @@ import { HydratedDocument } from "mongoose";
 import { UserModel, I_UserDocument } from "../db/usersModel";
 import { error } from "console";
 import bcrypt from "bcrypt";
+import { I_ClubDocument } from "../db/clubModel";
 
 export async function signUp(
   user: HydratedDocument<I_UserDocument>
@@ -27,5 +28,13 @@ export async function login(user: HydratedDocument<I_UserDocument>) {
     return foundUser
   } catch (error) {
     throw error;  
+  }
+}
+
+export async function myClub(club: HydratedDocument<I_ClubDocument>) {
+  try {
+    
+  } catch (error) {
+    
   }
 }
