@@ -27,9 +27,10 @@ export const Usersignup = async (req: Request, res: Response) => {
 
 export const myClub = async (req: Request, res: Response) => {
   try {
-    console.log('autorizado')
+    console.log(res.locals.user)
+    const chekedUser = res.locals.user
     // const user = await userService.myClub(req.body, req.headers);
-    res.status(200).send("hola")
+    res.status(200).send(chekedUser)
   } catch (error) {
     res.status(500).send(error)
   }
