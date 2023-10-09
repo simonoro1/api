@@ -1,9 +1,15 @@
 require("dotenv").config();
 
-import exp from "constants";
+//Global Dependencies
+import "express-async-errors"
 import express from "express";
-import { connect, connection } from "mongoose";
+
+//Project Dependecies
 import userRoutes from "./routes/users";
+import { errorHandler } from "./middleware/errors";
+
+//DB connection
+import { connect, connection } from "mongoose";
 const mongoString: any = process.env.DATABASE_URL; // fix any
 
 // MongoDb Conecttion
@@ -26,6 +32,7 @@ const port = 3000;
 // app use
 app.use(express.json())
 app.use('/users', userRoutes)
+app.use(errorHandler)
 
 app.get("/", (req, res) => {
   res.send("Hello World!");

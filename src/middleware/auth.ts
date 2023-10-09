@@ -9,7 +9,6 @@ export interface CustomRequest extends Request {
 }
 
 export const auth = async (req: Request, res: Response, next: NextFunction) => {
-  try {
     const token = req.header("Authorization")?.replace("Bearer ", "");
 
     if (!token) {
@@ -22,9 +21,6 @@ export const auth = async (req: Request, res: Response, next: NextFunction) => {
 
     console.log(decoded);
     next();
-  } catch (err) {
-    res.status(401).send("Please authenticate");
-  }
 };
 
 export const checkUser = async (
@@ -40,8 +36,10 @@ export const checkUser = async (
     }
 
     const decoded: any = jwt.verify(token, SECRET_KEY); // arreglar any
-    const foundUser = await UserModel.findById(decoded._id);
+    // (req as CustomRequest).token = decoded
+    const foundUser = await UserModel.findById(decoded._id).orFail();
     res.locals.user = foundUser;
+    console.log(foundUser)
     next();
   } catch (error) {
     console.log(error);

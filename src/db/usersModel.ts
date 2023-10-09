@@ -1,4 +1,4 @@
-import mongoose, { ObjectId, Schema } from "mongoose";
+import mongoose from "mongoose";
 const bcrypt = require('bcrypt');
 
 export interface I_UserDocument extends mongoose.Document {
@@ -6,9 +6,9 @@ export interface I_UserDocument extends mongoose.Document {
   name: string;
   password: string;
   membership: string;
-  myClub: Schema.Types.ObjectId;
   status: string;
   endDate: Date;
+  myClub: mongoose.Types.ObjectId | undefined;
   //created: dateTime
   // name: string;
   // lastName: string;
@@ -28,8 +28,8 @@ const UserSchema: mongoose.Schema<I_UserDocument> = new mongoose.Schema({
     type: Date,
     default: null,
   },
-  myClub: {type: Schema.Types.ObjectId, ref: 'Club', default: null},
-});
+  myClub: [{type: mongoose.Schema.Types.ObjectId , ref: 'Club'}]
+},{timestamps: true});
 
 UserSchema.pre("save", async function (next) {
   const user = this;
@@ -37,6 +37,7 @@ UserSchema.pre("save", async function (next) {
   if (user.isModified("password")) {
     user.password = await bcrypt.hash(user.password, 8);
   }
+
 
   next();
 });
