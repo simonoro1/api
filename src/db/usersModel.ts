@@ -28,7 +28,7 @@ const UserSchema: mongoose.Schema<I_UserDocument> = new mongoose.Schema({
     type: Date,
     default: null,
   },
-  myClub: {type: Schema.Types.ObjectId, ref: 'Club'},
+  myClub: {type: Schema.Types.ObjectId, ref: 'Club', default: null},
 });
 
 UserSchema.pre("save", async function (next) {

@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
 import * as userService from "./userService";
 import jwt from "jsonwebtoken";
+import { HydratedDocument } from 'mongoose';
+import { I_UserDocument } from "../db/usersModel";
 
 export const Userlogin = async (req: Request, res: Response) => {
   try {
@@ -27,10 +29,11 @@ export const Usersignup = async (req: Request, res: Response) => {
 
 export const myClub = async (req: Request, res: Response) => {
   try {
-    console.log(res.locals.user)
-    const chekedUser = res.locals.user
-    // const user = await userService.myClub(req.body, req.headers);
-    res.status(200).send(chekedUser)
+    const club = req.body
+    const chekedUser: HydratedDocument<I_UserDocument> = res.locals.user
+    const user = await userService.myClub(club, chekedUser);
+
+    res.status(200).send(user)
   } catch (error) {
     res.status(500).send(error)
   }

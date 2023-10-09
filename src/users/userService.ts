@@ -31,10 +31,14 @@ export async function login(user: HydratedDocument<I_UserDocument>) {
   }
 }
 
-export async function myClub(club: HydratedDocument<I_ClubDocument>) {
+export async function myClub(club: HydratedDocument<I_ClubDocument>, user: HydratedDocument<I_UserDocument>) {
   try {
-    
+    // update user
+    user.myClub = club.id
+    user.save()
+    console.log('Club selected succesfully')
+    return user
   } catch (error) {
-    
+    throw error
   }
 }
