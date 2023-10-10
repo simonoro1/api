@@ -43,3 +43,8 @@ UserSchema.pre("save", async function (next) {
 });
 
 export const UserModel = mongoose.model<I_UserDocument>("User", UserSchema);
+
+
+// This.Update Sucription
+// findonebyId / Email
+// This.Update Club

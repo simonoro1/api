@@ -25,3 +25,5 @@ export const Usersignup = async (req: Request, res: Response) => {
 };
 
 
+// Log Out
+// Method particular document , function Whole model  
