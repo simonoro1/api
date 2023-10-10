@@ -1,14 +1,14 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 const bcrypt = require('bcrypt');
 
-export interface I_UserDocument extends mongoose.Document {
+export interface I_UserDocument extends Document {
   // email: string;
   name: string;
   password: string;
-  membership: string;
+  membership: Schema.Types.ObjectId;
   status: string;
   endDate: Date;
-  myClub: mongoose.Types.ObjectId | undefined;
+  myClub: Schema.Types.ObjectId
   //created: dateTime
   // name: string;
   // lastName: string;
@@ -19,16 +19,16 @@ export interface I_UserDocument extends mongoose.Document {
   // billing: Array<[ObjectId]>;
 }
 
-const UserSchema: mongoose.Schema<I_UserDocument> = new mongoose.Schema({
+const UserSchema: Schema<I_UserDocument> = new Schema({
   name: { type: String, unique: true, },
   password: { type: String , required: true},
-  membership: {type: String, enum: ['None', 'Basic', 'Pro'], default: 'None'},
+  membership: {type: Schema.Types.ObjectId, ref: 'Membership', default: null},
   status: {type: String, enum: ['Active', 'Paused', 'Canceled'], default: 'Active'},
   endDate: {
     type: Date,
     default: null,
   },
-  myClub: [{type: mongoose.Schema.Types.ObjectId , ref: 'Club'}]
+  myClub: {type: Schema.Types.ObjectId , ref: 'Club', default: null}
 },{timestamps: true});
 
 UserSchema.pre("save", async function (next) {
@@ -45,6 +45,3 @@ UserSchema.pre("save", async function (next) {
 export const UserModel = mongoose.model<I_UserDocument>("User", UserSchema);
 
 
-// This.Update Sucription
-// findonebyId / Email
-// This.Update Club

@@ -9,8 +9,8 @@ import jwt from "jsonwebtoken";
 export async function signUp(
   user: HydratedDocument<I_UserDocument>
 ): Promise<I_UserDocument>  {
- 
-  return await UserModel.create(user); 
+  const newUser = new UserModel(user)
+  return await newUser.save(); 
 
 }
 
