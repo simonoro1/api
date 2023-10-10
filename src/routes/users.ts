@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express';
 import { Userlogin, Usersignup} from '../users/userController';
-import { auth, checkUser } from '../middleware/auth';
+import { CustomRequest, auth, checkUser } from '../middleware/auth';
 
 const router = Router();
 
@@ -10,8 +10,10 @@ router.post('/login', Userlogin)
 
 router.post('/register', Usersignup)
 
-router.get('/getAll', auth, (req, res) => {
-    res.send('get all authorized')
+router.get('/getAll', auth, (req : any, res) => {
+    const token = req.token
+
+    res.send(token)
 })
 
 // router.post('/myClub', auth, checkUser, myClub)
