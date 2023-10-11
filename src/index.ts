@@ -5,7 +5,8 @@ import "express-async-errors"
 import express from "express";
 
 //Project Dependecies
-import userRoutes from "./routes/users";
+import authRoutes from "./routes/authRoutes";
+import emailVerification from "./routes/emailVerification"
 import { errorHandler } from "./middleware/errors";
 
 //DB connection
@@ -31,7 +32,8 @@ const port = 3000;
 
 // app use
 app.use(express.json())
-app.use('/users', userRoutes)
+app.use('/users', authRoutes)
+app.use('/email-verification', emailVerification)
 app.use(errorHandler)
 
 app.get("/", (req, res) => {

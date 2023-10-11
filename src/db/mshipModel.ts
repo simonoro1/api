@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 export interface I_MembershipDocument extends mongoose.Document {
     mship: string,
     price: number,
-    isActive: boolean
+    status: boolean
     startDate: Date,
     endDate: Date,
 
@@ -13,7 +13,7 @@ export interface I_MembershipDocument extends mongoose.Document {
 const MembershipSchema: mongoose.Schema<I_MembershipDocument> = new mongoose.Schema({
     mship: {type: String,  enum : ['Mensual', 'Trimestral', 'Semestral', 'Anual'], default: undefined},
     price: Number,
-    isActive: Boolean,
+    status: Boolean,
     startDate: Date,
     endDate: Date,
 }, );

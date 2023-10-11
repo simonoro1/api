@@ -1,9 +1,7 @@
 // import { DocumentDefinition} from 'mongoose';
 import { HydratedDocument } from "mongoose";
 import { UserModel, I_UserDocument } from "../db/usersModel";
-import { error } from "console";
 import bcrypt from "bcrypt";
-import { I_ClubDocument } from "../db/clubModel";
 import jwt from "jsonwebtoken";
 
 export async function signUp(
@@ -11,7 +9,7 @@ export async function signUp(
 ): Promise<I_UserDocument>  {
   const newUser = new UserModel(user)
   return await newUser.save(); 
-
+ 
 }
 
 export async function login(user: HydratedDocument<I_UserDocument>) {

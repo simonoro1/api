@@ -1,21 +1,21 @@
 import { Router, Request, Response } from 'express';
-import { Userlogin, Usersignup} from '../users/userController';
-import { CustomRequest, auth, checkUser } from '../middleware/auth';
+import { login, signup} from '../auth/authController';
+import {auth} from '../middleware/auth';
 
 const router = Router();
 
 
 //Post Method
-router.post('/login', Userlogin)
+router.post('/login', login)
 
-router.post('/register', Usersignup)
+router.post('/register', signup)
 
-router.get('/getAll', auth, (req : any, res) => {
-    const token = req.token
-
-    res.send(token)
+router.get('/getAll', auth, (req: Request, res: Response) => {
+    const user = res.locals.user
+    res.send(user)
 })
 
+// router.get('/:me', auth, U )
 // router.post('/myClub', auth, checkUser, myClub)
 // //Get by ID Method
 // router.get('/getOne/:id', (req, res) => {

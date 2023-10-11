@@ -15,37 +15,11 @@ export const auth = async (req: Request, res: Response, next: NextFunction) => {
       throw new Error();
     }
 
-    const decoded = jwt.verify(token, SECRET_KEY);
-
-    (req as CustomRequest).token = decoded; // ?????
-
-    console.log(decoded);
-    next();
-};
-
-// Transform the two functions in one.
-
-export const checkUser = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
-    const token = req.header("Authorization")?.replace("Bearer ", "");
-
-    if (!token) {
-      throw new Error();
-    }
-
-    const decoded: any = jwt.verify(token, SECRET_KEY); // arreglar any
-    // (req as CustomRequest).token = decoded
+    const decoded: any = jwt.verify(token, SECRET_KEY);
     const foundUser = await UserModel.findById(decoded._id).orFail();
-    res.locals.user = foundUser;
-    console.log(foundUser)
+    // (req as CustomRequest).token = decoded; 
+    res.locals.user = foundUser
+
     next();
-  } catch (error) {
-    console.log(error);
-    res.locals.user = null;
-    next();
-  }
 };
+
