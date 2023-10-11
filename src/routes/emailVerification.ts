@@ -1,8 +1,15 @@
 import { Router } from "express";
 import { Request, Response } from "express";
 import { sendVerificationEmail } from "../utils/email";
-import { error } from "console";
+import { I_UserDocument, UserModel } from "../db/usersModel";
+import jwt, { Secret } from "jsonwebtoken";
+import { SECRET_KEY } from "../auth/authService";
+import { HydratedDocument } from "mongoose";
+
+
+
 const router = Router()
+
 
 
 // Middleware for sending a verification email
@@ -24,8 +31,26 @@ router.post('/send-email', (req: Request, res: Response) => {
 
   
   // Route for verifying the email using the token
-  router.get('/verify-email/:token', (req: Request, res: Response) => {
-    const token = req.params.token;
+  router.get('/verify', async (req: Request, res: Response) => {
+    const {token} : any = req.query;
+    const decoded: any = jwt.verify(token, SECRET_KEY);
+    const user: HydratedDocument<I_UserDocument> = await UserModel.findById( decoded._id).orFail();
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    if (user.isVerified) {
+      return res.status(400).json({ error: 'Email already verified' });
+    }
+
+    // Update user status to verified
+    user.isVerified = true;
+    await user.save();
+
+    res.json({ message: 'Email verified successfully' });
+
+    res.status(200).send('Email Verified')
     // Verify the token and mark the email as verified in your database
     // Respond to the client with the verification result
   });

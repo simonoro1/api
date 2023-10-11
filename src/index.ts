@@ -33,7 +33,7 @@ const port = 3000;
 // app use
 app.use(express.json())
 app.use('/users', authRoutes)
-app.use('/email-verification', emailVerification)
+app.use('/email', emailVerification)
 app.use(errorHandler)
 
 app.get("/", (req, res) => {

@@ -14,9 +14,9 @@ export const login = async (req: Request, res: Response) => {
 
 export const signup = async (req: Request, res: Response) => {
   try {
-    await authService.signUp(req.body);
-    login(req, res)
-    // res.status(200).send(user)
+    const user = await authService.signUp(req.body);
+    // login(req, res)
+    res.status(200).send(user)
   } catch (error: any) {
     throw new Error(error)
   }

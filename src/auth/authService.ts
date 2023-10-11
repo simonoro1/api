@@ -1,14 +1,33 @@
 // import { DocumentDefinition} from 'mongoose';
+const dotenv = require('dotenv').config()
+
 import { HydratedDocument } from "mongoose";
 import { UserModel, I_UserDocument } from "../db/usersModel";
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
+import jwt, { Secret } from "jsonwebtoken";
+import { sendVerificationEmail } from "../utils/email";
+
+
+export const SECRET_KEY: string = (process.env.SECRET_KEY as string);
+
+ function createToken(foundUser: HydratedDocument<I_UserDocument>){
+   const token = jwt.sign({_id: foundUser._id?.toString(), name: foundUser.name}, SECRET_KEY, {expiresIn: "2days"} )
+   return token
+ }
+
 
 export async function signUp(
   user: HydratedDocument<I_UserDocument>
-): Promise<I_UserDocument>  {
+)  {
+
   const newUser = new UserModel(user)
-  return await newUser.save(); 
+  await newUser.save(); 
+
+  const token = createToken(newUser)
+
+  sendVerificationEmail(newUser.email, token)
+
+  return newUser
  
 }
 
@@ -22,11 +41,12 @@ export async function login(user: HydratedDocument<I_UserDocument>) {
       throw new Error('Invalid data');
     }
 
-    const token = jwt.sign(
-      { _id: foundUser._id?.toString(), name: foundUser.name },
-    'baconsausage',
-      { expiresIn: "2days" }
-    );
+    // const token = jwt.sign(
+    //   { _id: foundUser._id?.toString(), name: foundUser.name },
+    // 'baconsausage',
+    //   { expiresIn: "2days" }
+    const token = createToken(foundUser)
+    
 
     return {foundUser, token}
 }

@@ -22,7 +22,7 @@ export const sendVerificationEmail = async (
     from: process.env.EMAIL,
     to,
     subject: "Account Verification",
-    text: `Click the following link to verify your account: http://localhost:3000/verify/${verificationToken}`,
+    text: `Click the following link to verify your account: http://localhost:3000/email/verify?token=${verificationToken}`,
     //EMAIL BODY
   };
   const info = await transporter.sendMail(mailOptions);
