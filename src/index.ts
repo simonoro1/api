@@ -1,4 +1,6 @@
 require("dotenv").config();
+var cors = require('cors')
+
 
 //Global Dependencies
 import "express-async-errors"
@@ -28,9 +30,10 @@ database.once("connected", () => {
 //Express Server Initialization
 
 const app = express();
-const port = 3000;
+const port = 5000;
 
 // app use
+app.use(cors())
 app.use(express.json())
 app.use('/users', authRoutes)
 app.use('/email', emailVerification)

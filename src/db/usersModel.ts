@@ -13,7 +13,7 @@ export interface I_UserDocument extends Document {
   address: object;
   // activities: Array<[ObjectId]>;
   // billing: Array<[ObjectId]>;
-  // payments , code, tokens , etc
+  // payments: Array<String>;
 }
 
 const UserSchema: Schema<I_UserDocument> = new Schema({
@@ -22,7 +22,8 @@ const UserSchema: Schema<I_UserDocument> = new Schema({
   password: { type: String , required: true},
   isVerified: {type: Boolean, default: false},
   membership: {type: Schema.Types.ObjectId, ref: 'Membership', default: null},
-  myClub: {type: Schema.Types.ObjectId , ref: 'Club', default: null}
+  myClub: {type: Schema.Types.ObjectId , ref: 'Club', default: null},
+  // payments: {type: Array, default: []}
 },{timestamps: true});
 
 UserSchema.pre("save", async function (next) {
