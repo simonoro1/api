@@ -4,9 +4,13 @@ import * as authService from "./authService";
 
 export const login = async (req: Request, res: Response) => {
   try {
-    const foundUser = await authService.login(req.body); // Devuelve el usuario validado y el token creado
+    const {foundUser, token} = await authService.login(req.body); // Devuelve el usuario validado y el token creado
+    res.cookie('jwt', token)
 
-    res.status(200).send(foundUser)
+    res.status(200).send({
+      succes: true,
+      user: foundUser._id
+    })
   } catch (error: any) {
     throw new Error(error) 
   }
@@ -15,8 +19,10 @@ export const login = async (req: Request, res: Response) => {
 export const signup = async (req: Request, res: Response) => {
   try {
     const user = await authService.signUp(req.body);
-    // login(req, res)
-    res.status(200).send(user)
+    res.status(200).send({
+      succes: true,
+      user
+    })
   } catch (error: any) {
     throw new Error(error)
   }
@@ -24,4 +30,3 @@ export const signup = async (req: Request, res: Response) => {
 
 
 // Log Out
-// Method particular document , function Whole model  

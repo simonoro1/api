@@ -4,22 +4,23 @@ import { UserModel } from "../db/usersModel";
 
 export const SECRET_KEY: Secret = "baconsausage";
 
-export interface CustomRequest extends Request {
-  token: string | JwtPayload;
+export interface decodedPayload {
+  _id : string,
+  name: string,
+  iat: number,
+  exp: number
 }
 
 export const auth = async (req: Request, res: Response, next: NextFunction) => {
-    const token = req.header("Authorization")?.replace("Bearer ", "");
-
+    const token = req.cookies.jwt
     if (!token) {
       throw new Error();
     }
 
-    const decoded: any = jwt.verify(token, SECRET_KEY);
+    const decoded: any  = jwt.verify(token, SECRET_KEY);
     const foundUser = await UserModel.findById(decoded._id).orFail();
-    // (req as CustomRequest).token = decoded; 
-    res.locals.user = foundUser
 
+    res.locals.user = foundUser
     next();
 };
 

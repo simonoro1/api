@@ -1,5 +1,6 @@
 require("dotenv").config();
 var cors = require('cors')
+const cookieParser = require('cookie-parser')
 
 
 //Global Dependencies
@@ -34,6 +35,7 @@ const port = 5000;
 
 // app use
 app.use(cors())
+app.use(cookieParser())
 app.use(express.json())
 app.use('/users', authRoutes)
 app.use('/email', emailVerification)
