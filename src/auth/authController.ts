@@ -5,7 +5,7 @@ import * as authService from "./authService";
 export const login = async (req: Request, res: Response) => {
   try {
     const {foundUser, token} = await authService.login(req.body); // Devuelve el usuario validado y el token creado
-    res.cookie('jwt', token)
+    res.cookie('jwt', token, {httpOnly: false})
 
     res.status(200).send({
       succes: true,
