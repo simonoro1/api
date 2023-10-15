@@ -10,9 +10,8 @@ router.post('/login', login)
 
 router.post('/register', signup)
 
-router.get('/getAll', auth, (req: Request, res: Response) => {
-    // const user = res.locals.user
-    res.send(req.cookies)
+router.get('/check', auth, (req: Request, res: Response) => {
+    res.status(200).send( res.locals.user )
 })
 
 
