@@ -5,11 +5,12 @@ import * as authService from "./authService";
 export const login = async (req: Request, res: Response) => {
   try {
     const {foundUser, token} = await authService.login(req.body); // Devuelve el usuario validado y el token creado
-    res.cookie('jwt', token, {httpOnly: false})
+    res.cookie('jwt', token, {httpOnly: true})
 
     res.status(200).send({
-      succes: true,
-      user: foundUser._id
+      _id: foundUser._id,
+      name: foundUser.name,
+      token
     })
   } catch (error: any) {
     throw new Error(error) 
@@ -30,3 +31,18 @@ export const signup = async (req: Request, res: Response) => {
 
 
 // Log Out
+
+
+
+export const logout = async (req: Request, res: Response) => {
+  try {
+    res.cookie('jwt', '', {maxAge: 1})
+    res.status(200).send(
+      {
+        message: "loggged out"
+      }
+    )
+  } catch (error: any) {
+    throw new Error(error)
+  }
+};
