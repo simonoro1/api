@@ -8,8 +8,7 @@ export const login = async (req: Request, res: Response) => {
     res.cookie('jwt', token, {httpOnly: true})
 
     res.status(200).send({
-      _id: foundUser._id,
-      name: foundUser.name,
+      foundUser,
       token
     })
   } catch (error: any) {
@@ -28,11 +27,24 @@ export const signup = async (req: Request, res: Response) => {
     throw new Error(error)
   }
 };
+//Refresh Token
 
+
+export const refreshToken = async (req: Request, res: Response) =>{
+
+  try {
+    const foundUser = res.locals.user
+    const token = await authService.refreshToken(foundUser)
+    res.status(200).send({
+      foundUser,
+      token
+    })
+  } catch (error: any) {
+    throw new Error(error)
+  }
+}
 
 // Log Out
-
-
 
 export const logout = async (req: Request, res: Response) => {
   try {

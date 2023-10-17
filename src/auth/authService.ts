@@ -18,6 +18,8 @@ function createToken(foundUser: HydratedDocument<I_UserDocument>) {
   return token;
 }
 
+
+
 export async function signUp(user: HydratedDocument<I_UserDocument>) {
   const newUser = new UserModel(user);
   await newUser.save();
@@ -40,7 +42,12 @@ export async function login(user: HydratedDocument<I_UserDocument>) {
 
   const token = createToken(foundUser);
 
-  return { foundUser, token };
+  return {foundUser , token };
 }
 
 
+export async function refreshToken( foundUser: HydratedDocument<I_UserDocument>) {
+  
+  const token = createToken(foundUser)
+  return token
+}  
