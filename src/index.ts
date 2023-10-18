@@ -36,7 +36,7 @@ const port = 5000;
 // app use
 app.use(cors({
   origin: 'http://localhost:3000',
-  credentials: true, // <= Accept credentials (cookies) sent by the client
+  credentials: true, // Accept credentials,(cookies),sent by the client
 }))
 app.use(cookieParser())
 app.use(express.json())
