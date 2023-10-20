@@ -13,7 +13,7 @@ function createToken(foundUser: HydratedDocument<I_UserDocument>) {
   const token = jwt.sign(
     { _id: foundUser._id?.toString(), name: foundUser.name },
     SECRET_KEY,
-    { expiresIn: "1m" }
+    { expiresIn: "10s" }
   );
   return token;
 }

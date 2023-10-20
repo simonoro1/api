@@ -14,7 +14,7 @@ export interface decodedPayload {
 export const auth = async (req: Request, res: Response, next: NextFunction) => {
     const token = req.cookies.jwt
     if (!token) {
-      throw new Error();
+      throw new Error('Token does not exist!');
     }
 
     const decoded: any  = jwt.verify(token, SECRET_KEY);
