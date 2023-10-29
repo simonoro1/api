@@ -58,3 +58,4 @@ export const logout = async (req: Request, res: Response) => {
     throw new Error(error)
   }
 };
+

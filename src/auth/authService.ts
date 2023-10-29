@@ -13,7 +13,7 @@ function createToken(foundUser: HydratedDocument<I_UserDocument>) {
   const token = jwt.sign(
     { _id: foundUser._id?.toString(), name: foundUser.name },
     SECRET_KEY,
-    { expiresIn: "10s" }
+    { expiresIn: "1m" }
   );
   return token;
 }
@@ -23,7 +23,6 @@ function createToken(foundUser: HydratedDocument<I_UserDocument>) {
 export async function signUp(user: HydratedDocument<I_UserDocument>) {
   const newUser = new UserModel(user);
   await newUser.save();
-
   const token = createToken(newUser);
 
   // sendVerificationEmail(newUser.email, token) // catch error ?;

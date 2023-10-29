@@ -37,7 +37,8 @@ router.post('/send-email', (req: Request, res: Response) => {
       const {token} : any = req.query;
       const decoded: any = jwt.verify(token, SECRET_KEY);
       const user: HydratedDocument<I_UserDocument> = await UserModel.findById( decoded._id).orFail();
-  
+      
+      console.log(user)
     
       if (user.isVerified) {
         throw new Error('Email already verified');
