@@ -8,7 +8,8 @@ export const login = async (req: Request, res: Response) => {
     res.cookie('jwt', token, {httpOnly: true})
 
     res.status(200).send({
-      foundUser,
+      succes: true,
+      user: foundUser,
       token
     })
   } catch (error: any) {
@@ -18,10 +19,12 @@ export const login = async (req: Request, res: Response) => {
 
 export const signup = async (req: Request, res: Response) => {
   try {
-    const user = await authService.signUp(req.body);
+    const {newUser, token} = await authService.signUp(req.body);
+    console.log("User Created:", newUser);
     res.status(200).send({
-      succes: true,
-      user
+      succes:true,
+      user: newUser,
+      token
     })
   } catch (error: any) {
     throw new Error(error)

@@ -27,7 +27,10 @@ export async function signUp(user: HydratedDocument<I_UserDocument>) {
 
   // sendVerificationEmail(newUser.email, token) // catch error ?;
 
-  return newUser;
+  return {
+    newUser,
+    token
+  };
 }
 
 export async function login(user: HydratedDocument<I_UserDocument>) {
