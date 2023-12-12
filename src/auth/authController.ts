@@ -20,6 +20,8 @@ export const login = async (req: Request, res: Response) => {
 export const signup = async (req: Request, res: Response) => {
   try {
     const {newUser, token} = await authService.signUp(req.body);
+    res.cookie('jwt', token, {httpOnly: true})
+    
     console.log("User Created:", newUser);
     res.status(200).send({
       succes:true,
