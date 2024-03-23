@@ -19,6 +19,7 @@ export const login = async (req: Request, res: Response) => {
 
 export const signup = async (req: Request, res: Response) => {
   try {
+    console.log(req.body)
     const {newUser, token} = await authService.signUp(req.body);
     res.cookie('jwt', token, {httpOnly: true})
     

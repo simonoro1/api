@@ -12,12 +12,7 @@ router.post('/register', signup)
 
 router.get('/logout', logout)
 
-
-router.get('/check', auth, (req: Request, res: Response) => {
-    res.status(200).send( res.locals.user )
-})
-
-router.get('/refresh',auth, refreshToken)
+router.get('/refresh', refreshToken)
 
 
 

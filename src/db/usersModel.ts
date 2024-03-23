@@ -1,27 +1,22 @@
-import {Types, Schema, ObjectId, model } from "mongoose";
+import {Schema, model } from "mongoose";
 
 const bcrypt = require('bcrypt');
 
 
 export interface I_UserDocument extends Document {
-  email: Schema.Types.ObjectId;
+  email: string;
+  userName: string;
   password: string;
-  profile: object;
   isVerified: boolean;
   active: boolean;
-  accounts: Types.Array<ObjectId>
-
 }
 
 
 
 const UserSchema: Schema<I_UserDocument> = new Schema({
   email: { type: String, unique: true, required: true},
+  userName: {type: String, required: true},
   password: { type: String , required: true},
-  profile: {
-		firstName: String,
-		lastName: String,
-		},
   isVerified: {type: Boolean, default: false},
   active: {type: Boolean, default: true}
 },{timestamps: true});

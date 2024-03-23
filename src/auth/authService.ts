@@ -11,7 +11,7 @@ export const SECRET_KEY: string = process.env.SECRET_KEY as string;
 
 function createToken(foundUser: HydratedDocument<I_UserDocument>) {
   const token = jwt.sign(
-    { _id: foundUser._id?.toString(), name: foundUser.email },
+    { _id: foundUser._id?.toString(), email: foundUser.email },
     SECRET_KEY,
     { expiresIn: "1m" }
   );
@@ -35,7 +35,7 @@ export async function signUp(user: HydratedDocument<I_UserDocument>) {
 
 export async function login(user: HydratedDocument<I_UserDocument>) {
   const foundUser = await UserModel.findOne({
-    name: user.email,
+    email: user.email,
   }).orFail();
 
   if (!bcrypt.compareSync(user.password, foundUser.password)) {
